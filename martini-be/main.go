@@ -35,7 +35,7 @@ func main() {
 	// CORS Setup
 	config := cors.DefaultConfig()
 	// config.AllowAllOrigins = true
-	config.AllowOrigins = []string{"http://localhost:3000", "https://martini.gligor.dev"}
+	config.AllowOrigins = []string{"http://martini.localhost:3000", "http://localhost:3000", "https://martini.gligor.dev"}
 	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	config.AllowHeaders = []string{"Authorization", "Content-Type"}
 	router.Use(cors.New(config))
