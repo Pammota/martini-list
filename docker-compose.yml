@@ -16,7 +16,7 @@ services:
       PG_DBNAME: ${PG_DB}
       PG_PORT: ${PG_DB_PORT}
     networks:
-      - appnet
+      - app-net
     ports:
       - "8010:8010"
     depends_on:
