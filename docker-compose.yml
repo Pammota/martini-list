@@ -32,7 +32,7 @@ services:
       POSTGRES_PASSWORD: ${PG_PASS}
       PGPORT: ${PG_DB_PORT}
     networks:
-      - appnet
+      - app-net
     volumes:
       - postgres-app-data:/var/lib/postgresql/data
 
