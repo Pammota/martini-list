@@ -26,7 +26,7 @@ func CreateItemsHandler(db *gorm.DB) *ItemsHandler {
 
 func (h *ItemsHandler) GetItems(c *gin.Context) {
 	var items []Item
-	h.db.Find(&items)
+	h.db.Order("index ASC").Find(&items)
 
 	c.JSON(http.StatusOK, items)
 }
