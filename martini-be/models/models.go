@@ -1,7 +1,7 @@
 package models
 
 type Item struct {
-	ID        int    `json:"id" sql:"AUTO_INCREMENT" gorm:"primaryKey;index;unique;autoIncrement"`
+	ID        uint   `json:"id" gorm:"primaryKey;uniqueIndex;autoIncrement"`
 	Name      string `json:"name"`
 	Completed bool   `json:"completed"`
 }

@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -44,10 +43,11 @@ func (h *ItemsHandler) CreateItem(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	item.ID = uuid.New().String()
-
-	h.db.Create(&item)
+	item.ID = 0
+	if err := h.db.Create(&item).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusCreated, item)
 }
