@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	// "encoding/json"
-
 	"martini-be/models"
 	"net/http"
 
@@ -26,7 +24,7 @@ func CreateItemsHandler(db *gorm.DB) *ItemsHandler {
 
 func (h *ItemsHandler) GetItems(c *gin.Context) {
 	var items []Item
-	h.db.Order("index ASC").Find(&items)
+	h.db.Order("id ASC").Find(&items)
 
 	c.JSON(http.StatusOK, items)
 }
@@ -35,7 +33,7 @@ func (h *ItemsHandler) GetItem(c *gin.Context) {
 	id := c.Param("id")
 
 	var item Item
-	h.db.First(&item, id)
+	h.db.First(&item, "id = ?", id)
 
 	c.JSON(http.StatusOK, item)
 }
@@ -58,7 +56,7 @@ func (h *ItemsHandler) UpdateItem(c *gin.Context) {
 	id := c.Param("id")
 
 	var item Item
-	h.db.First(&item, id)
+	h.db.First(&item, "id = ?", id)
 
 	if err := c.ShouldBindJSON(&item); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -74,7 +72,7 @@ func (h *ItemsHandler) DeleteItem(c *gin.Context) {
 	id := c.Param("id")
 
 	var item Item
-	h.db.First(&item, id)
+	h.db.First(&item, "id = ?", id)
 
 	h.db.Delete(&item)
 
